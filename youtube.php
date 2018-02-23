@@ -1,41 +1,24 @@
-<?php
+<?php 
+
+	$a = get_meta_tags('https://www.youtube.com/watch?v=YXeqIAEoyyY');
+	
+	var_dump($a);
+
+	
+	echo "<br>";
+
+	echo "titre : "; print_r ($a["title"]);
+	echo "<br><br>";
+	echo "description : "; print_r($a["description"]);
+	echo "<br><br>";
+	echo "URL : "; print_r($a["twitter:url"]);
+	echo "<br><br>";
+
+	echo "<iframe width='420' height='315'
+		src='".$a["twitter:player"]."'>'";
+	echo "</iframe>";
 
 
-//Youtube metadata
-
-function get_youtube($url){
-
- $youtube = "http://www.youtube.com/oembed?url=". $url ."&format=json";
-
- $curl = curl_init($youtube);
- curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
- $return = curl_exec($curl);
- curl_close($curl);
- return json_decode($return, true);
-
- }
-
-$url = $_GET['url'];
-
-// Display Data 
-print_r(get_youtube($url));
-
-
-
-
-
-//Get All metadata
-
-// require_once('metadata.class.php');
-
-// $metaData = MetaData::fetch('https://www.youtube.com/watch?v=-i0qKReU9AM');
-
-// //return a fucking array 
-// var_dump($metaData->tags());
-
-// foreach ($metaData as $key => $value) {
-// 	echo "$key => $value";
-// }
+	//echo "<img src='".$a["twitter:player"]."'> ";
 
 ?>
-
