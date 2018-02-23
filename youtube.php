@@ -2,7 +2,7 @@
 
 	$a = get_meta_tags('https://www.youtube.com/watch?v=YXeqIAEoyyY');
 	
-	var_dump($a);
+	//var_dump($a);
 
 	
 	echo "<br>";
