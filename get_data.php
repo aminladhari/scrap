@@ -1,44 +1,54 @@
 <?php
-header('Content-Type: application/json');
+// require"dataFiled.php";
 
-function get_page_info($url)
+// $datafiled=new DataFiled();
+// $datafiled->setUrl($_POST['link']);
+// //var_dump("tst". $datafiled->getYoutubeData());
+
+$url=$_POST['link'];
+
+if (preg_match ("/\b(?:youtube)\.com\b/i", $url)) 
 {
-        $urlInfo=array();
-        $str = file_get_contents($url);
-        $tags = get_meta_tags($url);
+   $x=file_get_contents("http://www.youtube.com/oembed?url=".$_POST['link']);
 
-                if(strlen($str)>0)
-                {
-                        $str = trim(preg_replace('/\s+/', ' ', $str));
-                        preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title);
+		$if=json_decode($x)->html;
+		$author =json_decode($x)->author_name;
+		$provider=json_decode($x)->provider_url;
+		$title=json_decode($x)->title;
+		$description=json_decode($x)->description;
 
-                        $urlInfo['title']=$title[1];
-                        $urlInfo['description']=$tags['description'];
-                        $urlInfo['keywords']=$tags['keywords'];
-                        $urlInfo['author_url']=$tags['author_url'];
+	    $data=array('if' =>$if ,'author'=>$author,'provider'=>$provider,'title'=>$title ,'description'=>$description);
 
+        print_r(json_encode($data));
+        exit();
 
-                        preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', $str, $image);
-
-                                if(count($image)>1)
-
-                                        $urlInfo['logo']=$image[1];
-                                else
-                                        $urlInfo['logo']=null;
-
-                                return $urlInfo;
-                }
 }
 
-        if(isset($_POST['getInfoFor']))
-        {
-                $siteInfo = get_page_info($_POST['getInfoFor']);
-                print_r(json_encode($siteInfo));
-        }
-        else
-        {
-                echo "Request Method Not Allowed!";
-        }
+elseif (preg_match ("/\b(?:dailymotion)\.com\b/i", $url)) 
+{
+
+	$x=file_get_contents("http://www.dailymotion.com/services/oembed?url=".$_POST['link']);
+
+		$if=json_decode($x)->html;
+		$type=json_decode($x)->type;
+		$author =json_decode($x)->author_name;
+		$provider=json_decode($x)->provider_url;
+		$title=json_decode($x)->title;
+		$description=json_decode($x)->description;
+
+
+	$data=array('if' =>$if ,'author'=>$author,'provider'=>$provider,'title'=>$title ,'description'=>$description);
+
+	 print_r(json_encode($data));
+        exit();
+	
+}
+
+
+
 
 
 ?>
+
+
+

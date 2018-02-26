@@ -17,22 +17,33 @@
 
 						<form id="myform">
   
-						  <input type="text" id="link" name="link" placeholder="Enter the valid URL, Eg:http://www.youtube.com/watch?v=-i0qKReU9AM"  class="form-control">
+  						<div class="form-group">
+  							 <input type="text" id="link" name="link" placeholder="Paste an URL, Ex http://www.youtube.com/watch?v=-i0qKReU9AM"  class="form-control">
+  						</div>
+						<div class="form-group">
 						  <input type="submit" id ="submit" value="Get URL Info" class="btn btn-primary pull-right">
-
+						</div>
 						</form>
-					</div>	
 
-					<div class="col-md-8 col-md-offset-2">
-					<textarea id="data" name="data" > </textarea>
+						
+
+					</div>	
+					<div  id="data">
+						
+					</div>
+					
 
 					  
 					</div>
+
+				  
+					
 			    </div>
 		    </div>
 	    </div>
 	</div>
-
+  <!-- Display  -->
+						
 </body>
 
 <script src="js/jquery.js">  
@@ -56,15 +67,39 @@ $(document).ready(function(){
 		
 			$.ajax({
 				type: "POST",
-				url: "youtube.php",
+				url: "get_data.php",
 				data: send,
 				cache: false,
-				success: function(result){
-					console.log(result);
-					$("#data").val(result);
+				success: function(result)
+				{
+				
+				 var json = JSON.parse(result);
+					
+					var res = "";
 
-					console.log(link);
-				}
+						if(json.title)
+						{
+		                                res += "<p class='text-center'>"+json.title+"</p>";
+		                }
+		                if(json.description)
+		                {
+		                                res += "<p class='text-center'>"+json.description+"</p>";
+		                }
+
+		                if(json.author)
+		                {
+		                                res += "<p class='text-center'>"+json.author+"</p>";
+		                }
+
+		                
+		                if(json.if)
+		                {
+		                                res += "<p class='text-center'>"+json.if+"</p>";
+		                }
+
+                			$('#data').html(res);
+
+			    }
 			});
 		}
 			return false;
