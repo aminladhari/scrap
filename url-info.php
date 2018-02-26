@@ -16,7 +16,7 @@
  
 <form action="get_data.php" id="searchForm">
   
-  <input type="text" name="url" placeholder="Enter the valid URL, Eg:https://www.youtube.com/watch?v=-i0qKReU9AM" value="https://www.youtube.com/watch?v=-i0qKReU9AM">
+  <input type="text" name="url" placeholder="Enter the valid URL, Eg:http://www.youtube.com/watch?v=-i0qKReU9AM" value="http://www.youtube.com/watch?v=-i0qKReU9AM">
   <input type="submit" value="Get URL Info">
 
 </form>
@@ -70,7 +70,6 @@ $( "#searchForm" ).submit(function( event ) {
   });
 });
 </script>
-
 
 
 </body>
